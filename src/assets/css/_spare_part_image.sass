@@ -1,0 +1,36 @@
+@use './_variables.sass' as *
+
+.spare-part_image
+    display: block
+
+.spare-part-card_image_container
+    overflow: hidden
+    height: 250px
+    .vertical-image
+        width: 100%
+    .horizontal-image
+        height: 100%
+
+.single-page_image_container
+    margin-right: 10px
+    border: 1px solid $lightGreyColor
+    max-width: 350px
+    .spare-part_image
+        width: 100%
+
+.modal-image-container
+    width: 100vw
+    height: 100vh
+    position: fixed
+    left: 0px
+    top: 0px
+    background-color: rgba(0, 0, 0, 0.25)
+    padding: 50px
+    z-index: 10
+
+.modal-image
+    max-width: 1000px
+    display: block
+    margin: 0 auto
+    height: 100%
+    box-shadow: 0px 0px 32px 20px rgba(0, 0, 0, 0.35)

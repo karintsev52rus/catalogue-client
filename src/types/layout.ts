@@ -1,0 +1,1 @@
+type LayoutChildren = React.ReactElement

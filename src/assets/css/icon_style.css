@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon/icomoon.eot?uediqo');
+  src:  url('../fonts/icomoon/icomoon.eot?uediqo#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon/icomoon.ttf?uediqo') format('truetype'),
+    url('../fonts/icomoon/icomoon.woff?uediqo') format('woff'),
+    url('../fonts/icomoon/icomoon.svg?uediqo#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trailer-item:before {
+  content: "\e901";
+}
+.icon-jac-item:before {
+  content: "\e90b";
+
+}
+ .sidebar__menu .icon-jac-item:before{
+  font-size: 18px;
+ }
+
+.icon-engine-item:before {
+  content: "\e90c";
+}
+.icon-pneumo-item:before {
+  content: "\e90d";
+}
+.icon-washig-item:before {
+  content: "\e90e";
+}
+.icon-transmission_2-item:before {
+  content: "\e902";
+}
+.icon-engine_2-item:before {
+  content: "\e903";
+}
+.icon-diagnostic-item:before {
+  content: "\e904";
+}
+.icon-injector-item:before {
+  content: "\e900";
+}
+.icon-oil-item:before {
+  content: "\e905";
+}
+.icon-piston-item:before {
+  content: "\e906";
+}
+.icon-transmission-item:before {
+  content: "\e907";
+}
+.icon-suspension-item:before {
+  content: "\e908";
+}
+.icon-wheels-item:before {
+  content: "\e909";
+}
+.icon-brakes-item:before {
+  content: "\e90a";
+}
