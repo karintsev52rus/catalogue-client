@@ -45,7 +45,9 @@ const SinglePartPage:React.FC<ISinglePartPageProps> = ({categoryName})=>{
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {partInfo.price}  Р</span>
                 </div>
                 <div className="spare-part_available spare-part_prop">
-                    <span className = "spare-part_prop_value in-stock" > В наличии </span>
+                {partInfo.quantity > 0 ? <span className = "spare-part_prop_value in-stock" > В наличии </span> :
+                        <span className = "spare-part_prop_value out-stock" > Под заказ </span>
+                    }
                 </div>
             </div>
             :

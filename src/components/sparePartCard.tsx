@@ -9,7 +9,7 @@ type SPCardProps = {
 }
 
 const SparePartCard:React.FC<SPCardProps> = ({partInfo})=>{
-    const {title, price, brand, partNumber, rootGroup} = partInfo
+    const {title, price, brand, partNumber, rootGroup, quantity} = partInfo
 
     return (
         <div className="spare-part_card">
@@ -27,7 +27,10 @@ const SparePartCard:React.FC<SPCardProps> = ({partInfo})=>{
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {price}  Р</span>
                 </div>
                 <div className="spare-part_available spare-part_prop">
-                    <span className = "spare-part_prop_value in-stock" > В наличии </span>
+                    {quantity > 0 ? <span className = "spare-part_prop_value in-stock" > В наличии </span> :
+                        <span className = "spare-part_prop_value out-stock" > Под заказ </span>
+                    }
+                    
                 </div>
             </div>
             <Link to = {`/${rootGroup}/${partNumber}`}>

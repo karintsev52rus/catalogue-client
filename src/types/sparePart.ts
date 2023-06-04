@@ -4,6 +4,7 @@ interface ISparePart {
   price: number;
   brand?: string;
   rootGroup: string;
+  quantity: number;
 }
 
 export { ISparePart };
