@@ -1,6 +1,15 @@
+.single-page_container
+    flex-wrap: wrap
+
 .part-info
     padding: 15px
     .spare-part-prop
         justify-content: start
     .spare-part_prop_name
         min-width: 200px
+
+@media (max-width: 576px)
+    .single-page_container
+        flex-wrap: wrap
+        .spare-part_prop_name
+            min-width: 160px

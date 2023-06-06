@@ -9,16 +9,6 @@
 a
     text-decoration: none
 
-.search-form_container
-    max-width: 800px
-    padding: 20px 0
-    display: flex
-    align-items: center
-    justify-content: center
-    position: sticky
-    top: 0
-    z-index: 5
-
 .catalogue-button
     display: block
     padding: 10px 30px
@@ -83,3 +73,10 @@ a
             color: $redColor
         .arrow
             padding: 0 15px
+
+@media ( max-width: 576px )
+    .spare-parts_container
+        padding: 0
+
+    .page-title
+        font: 500 21px/30px "Play"

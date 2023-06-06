@@ -20,9 +20,9 @@ const SparePartCard:React.FC<SPCardProps> = ({partInfo})=>{
             <div className="divider"></div>
             <div className = "spare-part_info">
                 <div className="spare-part_title spare-part_prop">{title}</div>
-                <div className="spare-part_brand spare-part_prop">
+                {/* <div className="spare-part_brand spare-part_prop">
                     <span className = "spare-part_prop_name"> бренд:</span  ><span className = "spare-part_prop_value">{brand}</span>
-                </div>
+                </div> */}
                 <div className="spare-part_price spare-part_prop">
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {price}  Р</span>
                 </div>

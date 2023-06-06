@@ -32,15 +32,15 @@ const SinglePartPage:React.FC<ISinglePartPageProps> = ({categoryName})=>{
         <div className="container page-container">
             <BreadCrumbs/>
             {!fetching ? <h1 className="page-title"> { error? partNumber : partInfo.title } </h1> : null} 
-        <div className="flex-container">
+        <div className="flex-container single-page_container">
             <div className="single-page_image_container">
                 <PartImage partNumber = {partNumber} />
             </div>
             {!fetching ? 
             <div className="part-info">
-                <div className="spare-part_brand spare-part_prop">
+                {/* <div className="spare-part_brand spare-part_prop">
                     <span className = "spare-part_prop_name"> бренд:</span  ><span className = "spare-part_prop_value">{partInfo.brand}</span>
-                </div>
+                </div> */}
                 <div className="spare-part_price spare-part_prop">
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {partInfo.price}  Р</span>
                 </div>

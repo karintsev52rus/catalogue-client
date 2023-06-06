@@ -237,7 +237,7 @@ body._touch .sub-menu-open > a{
 		position: fixed;
 		width:0%;
 		height:100vh;
-		z-index: 3;
+		z-index: 6;
 		flex-direction: column;
 		justify-content: flex-start;
 		background-color: rgba(24, 24, 24, 0.9);
@@ -283,7 +283,7 @@ body._touch .sub-menu-open > a{
 		border: 1px solid #fff;
 		background-color: rgba(24, 24, 24, 0.9);
 		transition: .5s all;
-		z-index: 6
+		z-index: 7
 	}
 	.hamburger span {
 		display: block;
@@ -1266,7 +1266,7 @@ body._touch .sub-menu-open > a{
 		width: 22px
 	}
 	.contact-info__phone .phone_number {
-		font: 300 21px/27px 'Play'
+		font: 300 18px/24px 'Play'
 	}
 	
 	.header-slider__links{

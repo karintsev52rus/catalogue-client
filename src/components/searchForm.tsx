@@ -1,6 +1,7 @@
 import { useSearchForm } from "../hooks/useSearchForm"
 import { useState, useEffect, useRef, RefObject } from "react";
 import { DropDownList } from "./dropDownList";
+import SearchIcon from "../assets/img/catalogue/magnifying-glass-solid.svg"
 
 const SearchForm: React.FC = ()=>{
     
@@ -48,7 +49,10 @@ const SearchForm: React.FC = ()=>{
         onClick = {()=>{
             findData()
         }}
-        className="catalogue-button">ПОИСК</button>
+        className="catalogue-button search-button">  
+            <span className="button-text">ПОИСК</span>
+            <img src={SearchIcon} alt="search icon" className="search-icon" /> 
+        </button>
     </>
     )
 }

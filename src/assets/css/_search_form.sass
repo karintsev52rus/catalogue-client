@@ -4,9 +4,18 @@
     position: relative
     min-width: 500px
 
+.search-form_container
+    max-width: 800px
+    padding: 20px 0
+    display: flex
+    align-items: center
+    justify-content: center
+    position: sticky
+    top: 0
+    z-index: 5
+
 .search-input
     width: 100%
-
     top: 20px
     max-width: 600px
     height: 36px
@@ -16,6 +25,10 @@
     box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.25)
     padding: 10px 15px
     font: 400 16px/24px 'Roboto'
+
+.search-button
+    .search-icon
+        display: none
 
 .dropdown-list
     box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.25)
@@ -36,3 +49,23 @@
         color: $blackColor
     :hover
         color: $redColor
+
+@media ( max-width: 768px )
+    .search-form_container
+        padding: 20px 10px
+    .search-input_container
+        width: 100%
+        min-width: initial
+
+@media (max-width: 576px)
+    .search-form_container
+        .catalogue-button
+            padding: 6px
+        .search-button
+            width: 36px
+            height: 36px
+            .button-text
+                display: none
+            .search-icon
+                display: block
+                height: 100%
