@@ -1,11 +1,26 @@
 import CloseIcon from "../assets/img/catalogue/xmark-solid.svg"
 import FilterIcon from '../assets/img/catalogue/filter-solid.svg'
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useTypedSelector } from "../hooks/useTypedSelector"
+import {partListSelectors} from "../store/selectors"
+import { partListActions } from "../store/reducers/partListReducer"
+import { useDispatch } from "react-redux"
+import { usePartList } from "../hooks/usePartList"
+
 
 
 const Sidebar: React.FC = ()=>{
+    const dispatch = useDispatch()
 
     const [expand, setExpand] = useState(false)
+    const partGroups = useTypedSelector(partListSelectors.parentGroupsSelector)
+    const {onLoadParts} = usePartList()
+
+    useEffect(()=>{
+
+        dispatch({type: partListActions.SET_SELECTED_LIST})
+        onLoadParts()
+    }, [partGroups])
 
     const onClose = ()=>{
         setExpand(false)
@@ -13,6 +28,12 @@ const Sidebar: React.FC = ()=>{
 
     const onExpand = ()=>{
         setExpand(true)
+    }
+
+    const changePartGroupsList = (e: React.ChangeEvent<HTMLInputElement>, index: number)=>{
+        const group = {name: e.target.name, index : index, checked: e.target.checked}
+        dispatch({type: partListActions.UPDATE_PARENT_GROUP_LIST, payload: {group}})
+        dispatch({type: partListActions.CLEAR_RENDERED_LIST})
     }
 
     return (
@@ -35,9 +56,21 @@ const Sidebar: React.FC = ()=>{
                         <span className="group_title">
                             Группы :
                         </span>
-                        <li className="groupItem"> <input className="filter_checkbox" type="checkbox"/>Запчасти для ТО </li>
-                        <li className="groupItem"><input className="filter_checkbox" type="checkbox"/> Ходовая </li>
-                        <li className="groupItem"><input className="filter_checkbox" type="checkbox"/> Электрика</li>
+                        {partGroups.groups.map((group, index)=>{
+                            return (
+                                <li className="groupItem"
+                                key={`${group.name}${index}`}> 
+                                    <input 
+                                    className="filter_checkbox" 
+                                    type="checkbox"
+                                    name = {group.name}
+                                    checked = {group.checked}
+                                    onChange={(e)=>{ changePartGroupsList (e, index) }}
+                                    />
+                                    {group.name}
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>

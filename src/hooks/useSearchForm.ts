@@ -9,8 +9,14 @@ import { getPartList } from "../actions/dataActions";
 
 const useSearchForm = () => {
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
-  const { SET_SELECTED_LIST, SET_RENDERED_LIST, START_LOADING, STOP_LOADING } =
-    partListActions;
+  const {
+    SET_SELECTED_LIST,
+    CREATE_PARENT_GROUPS_LIST,
+    SET_RENDERED_LIST,
+    START_LOADING,
+    STOP_LOADING,
+  } = partListActions;
+
   const [dropDownList, setDropdownList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
@@ -31,7 +37,7 @@ const useSearchForm = () => {
 
   const findData = () => {
     if (inputValue.length === 0) {
-      dispatch({ type: SET_SELECTED_LIST, payload: loadedList });
+      dispatch({ type: SET_SELECTED_LIST });
       return;
     }
     const copyPartList = loadedList.slice(0, loadedList.length);
@@ -41,8 +47,11 @@ const useSearchForm = () => {
 
     console.log(filteredData);
 
-    dispatch({ type: SET_SELECTED_LIST, payload: { partList: filteredData } });
+    dispatch({ type: SET_SELECTED_LIST });
     dispatch({ type: SET_RENDERED_LIST, payload: { partList: filteredData } });
+    dispatch({
+      type: CREATE_PARENT_GROUPS_LIST,
+    });
     navigate(`/search/${inputValue}`);
   };
 

@@ -23,6 +23,7 @@ const Catalogue = ()=>{
 
                     return (
                         <CategoryCard
+                        key = {dataItem.groupTitle}
                         categoryTitle = {dataItem.groupTitle}
                         categoryImage = {dataItem.imagePath}
                         categoryPath = {dataItem.groupPath}

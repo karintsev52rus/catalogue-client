@@ -10,24 +10,28 @@ const useCategoryData = (categoryData: string) => {
   const dispatch = useDispatch();
   const { onLoadParts } = usePartList();
 
-  const { SET_SELECTED_LIST } = partListActions;
+  const {
+    SET_SELECTED_LIST,
+    CREATE_PARENT_GROUPS_LIST,
+    SET_ROOT_GROUP_FILTER,
+  } = partListActions;
 
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
   const loader = useTypedSelector(partListSelectors.loaderSelector);
 
-  const getCategoryData = (categoryData: string, allData: ISparePart[]) => {
-    const resultData = allData.filter((SP) => {
-      return SP.rootGroup === categoryData;
-    });
-    console.log(resultData);
-    return resultData;
-  };
-
   useEffect(() => {
     if (loadedList.length > 0 && !loader) {
       dispatch({
+        type: SET_ROOT_GROUP_FILTER,
+        payload: { rootGroup: categoryData },
+      });
+
+      dispatch({
         type: SET_SELECTED_LIST,
-        payload: { partList: getCategoryData(categoryData, loadedList) },
+      });
+
+      dispatch({
+        type: CREATE_PARENT_GROUPS_LIST,
       });
       onLoadParts();
     }

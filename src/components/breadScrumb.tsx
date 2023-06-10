@@ -32,9 +32,9 @@ const BreadCrumbs = ()=>{
         <ul className="breadcrumbs">
             {titles.map((t, index)=>{
                 return (
-                    <>
-                    <li key= {index} className="breadcrumb">
-                        <Link  to={t.pathname} > { getCrumbTitle(t.pathname) } </Link>
+                    
+                    <li key= {`${index}${t.pathname}`} className="breadcrumb">
+                        <Link key = {index} to={t.pathname} > { getCrumbTitle(t.pathname) } </Link>
                         {
                             index !== titles.length - 1 ? 
                             <div  className="arrow">
@@ -43,9 +43,6 @@ const BreadCrumbs = ()=>{
                             null
                         }
                     </li>
-                    
-                    </>
-                    
                 )
             })}
         </ul>

@@ -5,6 +5,13 @@ interface ISparePart {
   brand?: string;
   rootGroup: string;
   quantity: number;
+  parentGroup: string;
 }
 
-export { ISparePart };
+interface IPartGroup {
+  name: string;
+  checked: boolean;
+  index: number;
+}
+
+export { ISparePart, IPartGroup };
