@@ -6,21 +6,24 @@ import { partListActions } from "../store/reducers/partListReducer";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getPartList } from "../actions/dataActions";
+import { usePartList } from "./usePartList";
 
 const useSearchForm = () => {
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
   const {
     SET_SELECTED_LIST,
     CREATE_PARENT_GROUPS_LIST,
-    SET_RENDERED_LIST,
     START_LOADING,
     STOP_LOADING,
+    SET_SEARCH_STRING_FILTER,
+    CLEAR_RENDERED_LIST,
   } = partListActions;
 
   const [dropDownList, setDropdownList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { onLoadParts } = usePartList();
 
   useEffect(() => {
     if (loadedList.length === 0) {
@@ -36,23 +39,20 @@ const useSearchForm = () => {
   }, []);
 
   const findData = () => {
-    if (inputValue.length === 0) {
+    if (inputValue.length > 0) {
+      dispatch({
+        type: SET_SEARCH_STRING_FILTER,
+        payload: { searchString: inputValue },
+      });
+      dispatch({ type: CLEAR_RENDERED_LIST });
+
       dispatch({ type: SET_SELECTED_LIST });
-      return;
+      onLoadParts();
+      dispatch({
+        type: CREATE_PARENT_GROUPS_LIST,
+      });
+      navigate(`/search/${inputValue}`);
     }
-    const copyPartList = loadedList.slice(0, loadedList.length);
-    const filteredData = copyPartList.filter((item) => {
-      return item.title.toLowerCase().indexOf(inputValue) >= 0;
-    });
-
-    console.log(filteredData);
-
-    dispatch({ type: SET_SELECTED_LIST });
-    dispatch({ type: SET_RENDERED_LIST, payload: { partList: filteredData } });
-    dispatch({
-      type: CREATE_PARENT_GROUPS_LIST,
-    });
-    navigate(`/search/${inputValue}`);
   };
 
   const onInput: React.ChangeEventHandler = (
@@ -64,6 +64,19 @@ const useSearchForm = () => {
       return part.title.toLocaleLowerCase().indexOf(searchPhrase) >= 0;
     });
     setDropdownList(filteredData);
+    if (searchPhrase.length === 0) {
+      dispatch({
+        type: SET_SEARCH_STRING_FILTER,
+        payload: { searchString: searchPhrase },
+      });
+
+      dispatch({ type: CLEAR_RENDERED_LIST });
+      dispatch({ type: SET_SELECTED_LIST });
+      onLoadParts();
+      dispatch({
+        type: CREATE_PARENT_GROUPS_LIST,
+      });
+    }
   };
 
   return { onInput, dropDownList, findData };

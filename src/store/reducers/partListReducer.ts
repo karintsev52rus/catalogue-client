@@ -9,6 +9,7 @@ export interface IState {
   error: { errorText: string } | null;
   rootGroup: { active: boolean; groupName: string };
   parentGroups: { active: boolean; groups: IPartGroup[] };
+  searchString: { active: boolean; value: string };
 }
 
 interface IPartListAction {
@@ -18,6 +19,7 @@ interface IPartListAction {
     partList: ISparePart[];
     group: IPartGroup;
     rootGroup: string;
+    searchString: string;
   };
 }
 
@@ -38,6 +40,7 @@ export const partListActions = {
   UPDATE_PARENT_GROUP_LIST: "UPDATE_PARENT_GROUP_LIST",
   SET_ROOT_GROUP_FILTER: "SET_ROOT_GROUP_FILTER",
   CREATE_PARENT_GROUPS_LIST: "CREATE_PARENT_GROUPS_LIST",
+  SET_SEARCH_STRING_FILTER: "SET_SEARCH_STRING_FILTER",
 };
 
 const getParentGroups = (partList: ISparePart[]) => {
@@ -108,7 +111,31 @@ const rootGroupFilter: IFilter = {
   filterFunction: rootGroupFilterFunction,
 };
 
-const filters: IFilter[] = [rootGroupFilter, parentGroupsFilter];
+const searchStringFilterFunction = (partList: ISparePart[], state: IState) => {
+  console.log(partList);
+  if (!state.searchString.active) {
+    return partList;
+  }
+  if (state.searchString.value.length === 0) {
+    return partList;
+  }
+  const copyPartList = partList.slice(0, partList.length);
+  const filteredData = copyPartList.filter((item) => {
+    return item.title.toLowerCase().indexOf(state.searchString.value) >= 0;
+  });
+  return filteredData;
+};
+
+const searchStringFilter: IFilter = {
+  name: "searchStringFilter",
+  filterFunction: searchStringFilterFunction,
+};
+
+const filters: IFilter[] = [
+  rootGroupFilter,
+  parentGroupsFilter,
+  searchStringFilter,
+];
 
 const defaultState: IState = {
   loadedList: [],
@@ -119,6 +146,7 @@ const defaultState: IState = {
   error: null,
   parentGroups: { active: false, groups: [] },
   rootGroup: { active: false, groupName: "" },
+  searchString: { active: false, value: "" },
 };
 
 export const partListReducer = (
@@ -209,6 +237,15 @@ export const partListReducer = (
         },
       };
 
+    case partListActions.SET_SEARCH_STRING_FILTER:
+      return {
+        ...state,
+        searchString: {
+          ...state.searchString,
+          active: true,
+          value: action.payload.searchString,
+        },
+      };
     case partListActions.START_LOADING:
       return {
         ...state,

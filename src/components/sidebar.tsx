@@ -7,8 +7,6 @@ import { partListActions } from "../store/reducers/partListReducer"
 import { useDispatch } from "react-redux"
 import { usePartList } from "../hooks/usePartList"
 
-
-
 const Sidebar: React.FC = ()=>{
     const dispatch = useDispatch()
 

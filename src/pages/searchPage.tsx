@@ -3,6 +3,7 @@ import { Sidebar } from "../components/sidebar"
 import { SparePartList } from "../components/sparePartList"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { partListSelectors } from "../store/selectors"
+import { BreadCrumbs } from "../components/breadScrumb"
 
 import { ISparePart } from "../types/sparePart"
 
@@ -11,10 +12,9 @@ const SearchPage: React.FC = ()=>{
     const {searchPhrase} = useParams()
     const renderList: ISparePart[] = useTypedSelector(partListSelectors.renderListSelector)
 
-    console.log(renderList)
-
     return (
         <div className="container page-container">
+            <BreadCrumbs/>
         <h1 className="page-title"> {searchPhrase.length > 0 ? `Результаты поиска по запросу ${searchPhrase}` : "Результаты поиска" } </h1>
         <div className="flex-container">
             <Sidebar/>
