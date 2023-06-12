@@ -59,10 +59,26 @@ const useSearchForm = () => {
   ) => {
     const searchPhrase = e.target.value.toLowerCase();
     setInputValue(searchPhrase);
-    const filteredData = loadedList.filter((part: ISparePart) => {
-      return part.title.toLocaleLowerCase().indexOf(searchPhrase) >= 0;
-    });
-    setDropdownList(filteredData);
+
+    const searchStringArray = searchPhrase.split(" ");
+    if (searchStringArray.length > 1) {
+      const result = loadedList.filter((part: ISparePart) => {
+        let includes = true;
+        searchStringArray.forEach((string) => {
+          if (part.title.toLowerCase().indexOf(string.toLowerCase()) < 0) {
+            includes = false;
+          }
+        });
+        return includes === true;
+      });
+      setDropdownList(result);
+    } else {
+      const filteredData = loadedList.filter((part: ISparePart) => {
+        return part.title.toLocaleLowerCase().indexOf(searchPhrase) >= 0;
+      });
+      setDropdownList(filteredData);
+    }
+
     if (searchPhrase.length === 0) {
       dispatch({
         type: SET_SEARCH_STRING_FILTER,

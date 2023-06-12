@@ -1,6 +1,7 @@
 import { CategoryCard } from "./categoryCard";
 import { useEffect, useState } from "react";
 import { getPartGroups } from "../actions/dataActions";
+import Helmet from "react-helmet"
 
 const Catalogue = ()=>{
     const [ groupsData, setGroupsData ] =  useState([])
@@ -16,6 +17,9 @@ const Catalogue = ()=>{
 
     return (
         <div className="container page-container">
+            <Helmet>
+                <title>Автоцентр | Запчасти для грузовых автомобилей</title>
+            </Helmet>
             <h1 className="page-title"> Каталог	</h1>
             <div className="service-container">
                 {!fetching? 

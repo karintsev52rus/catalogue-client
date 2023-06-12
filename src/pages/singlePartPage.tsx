@@ -4,6 +4,7 @@ import { getPart } from "../actions/dataActions"
 import { PartImage } from "../components/partImage"
 import { Loader } from "../components/common/loader"
 import { BreadCrumbs } from "../components/breadScrumb"
+import Helmet from "react-helmet"
 
 
 
@@ -30,6 +31,9 @@ const SinglePartPage:React.FC = ()=>{
 
     return (
         <div className="container page-container">
+            <Helmet>
+                <title> Автоцентр | {!fetching && !error ? partInfo.title : "" } </title>
+            </Helmet>
             <BreadCrumbs/>
             {!fetching ? <h1 className="page-title"> { error? partNumber : partInfo.title } </h1> : null} 
         <div className="flex-container single-page_container">

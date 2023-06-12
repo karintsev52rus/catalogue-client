@@ -122,7 +122,6 @@ const searchStringFilterFunction = (partList: ISparePart[], state: IState) => {
   if (state.searchString.value.length === 0) {
     return partList;
   }
-
   const copyPartList = partList.slice(0, partList.length);
 
   const searchStringArray = state.searchString.value.split(" ");
@@ -154,6 +153,38 @@ const searchStringFilter: IFilter = {
   name: "searchStringFilter",
   filterFunction: searchStringFilterFunction,
 };
+
+const titleSort = (a: ISparePart, b: ISparePart) => {
+  if (a.title > b.title) {
+    return 1;
+  }
+  if (a.title < b.title) {
+    return -1;
+  }
+  if (a.title === b.title) {
+    return 0;
+  }
+};
+
+const titleSorter = (partList: ISparePart[]) => {
+  return partList.sort(titleSort);
+};
+
+const stockSorter = (partList: ISparePart[]) => {
+  let notInStock: ISparePart[] = [];
+  let inStock: ISparePart[] = [];
+  partList.forEach((part) => {
+    if (part.quantity === 0) {
+      notInStock.push(part);
+    } else {
+      inStock.push(part);
+    }
+  });
+  const result = [...inStock, ...notInStock];
+  return result;
+};
+
+const sorters = [titleSorter, stockSorter];
 
 const filters: IFilter[] = [
   rootGroupFilter,
@@ -223,9 +254,15 @@ export const partListReducer = (
         newSelectedList = filter.filterFunction(newSelectedList, state);
       });
 
+      let sortedList = newSelectedList;
+
+      sorters.forEach((sorter) => {
+        sortedList = sorter(newSelectedList);
+      });
+
       return {
         ...state,
-        selectedList: newSelectedList,
+        selectedList: sortedList,
       };
 
     case partListActions.SET_ROOT_GROUP_FILTER:

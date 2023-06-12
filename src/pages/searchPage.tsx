@@ -5,19 +5,23 @@ import { useTypedSelector } from "../hooks/useTypedSelector"
 import { partListSelectors } from "../store/selectors"
 import { BreadCrumbs } from "../components/breadScrumb"
 import { useSearchPage } from "../hooks/useSearchPage"
+import { Helmet } from "react-helmet"
 
 import { ISparePart } from "../types/sparePart"
 
 const SearchPage: React.FC = ()=>{
 
+    
+
     const {searchPhrase} = useParams()
     const renderList: ISparePart[] = useTypedSelector(partListSelectors.renderListSelector)
     useSearchPage(searchPhrase)
 
-    
-
     return (
         <div className="container page-container">
+            <Helmet>
+                <title> Автоцентр | поиск {searchPhrase} </title>
+            </Helmet>
             <BreadCrumbs/>
         <h1 className="page-title"> {searchPhrase.length > 0 ? `Результаты поиска по запросу ${searchPhrase}` : "Результаты поиска" } </h1>
         <div className="flex-container">

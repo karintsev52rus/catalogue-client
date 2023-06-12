@@ -11,6 +11,7 @@ const PartImage: React.FC<PartImageProps> = ({partNumber})=>{
     const [imageUrl, setImageUrl] = useState(Placeholder)
     const [imageClass, setImageClass] = useState("placeholder_image")
     const imageRef = useRef(null)
+    const modalImageRef = useRef(null)
     const [modalImage, setModalImage] = useState(false)
 
     useEffect(()=>{
@@ -46,12 +47,23 @@ const PartImage: React.FC<PartImageProps> = ({partNumber})=>{
             }}
         />
         { modalImage && imageClass !== "placeholder_image" ? 
-        <div className="modal-image-container"
+        
+        <div className="modal-image-container" 
         onClick={()=>{
             setModalImage(!modalImage)
         }}
         >
-            <img src= {imageUrl} alt="part image" className="modal-image"/>
+            <img 
+            ref = {modalImageRef} 
+            src= {imageUrl} 
+            alt="part image" 
+            className="modal-image"
+            onLoad={()=>{
+                modalImageRef.current.width > modalImageRef.current.height ?
+                modalImageRef.current.classList.add("modal-image-horizontal") : 
+                modalImageRef.current.classList.add("modal-image-vertical")
+            }}
+            />
         </div> :
         null
         }

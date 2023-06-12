@@ -8,6 +8,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector"
 import { partListSelectors } from "../store/selectors"
 import { useCategoryData } from "../hooks/useCategoryData"
 import { BreadCrumbs } from "../components/breadScrumb"
+import Helmet from "react-helmet"
 
 interface ICategoryPageProps{
     pageTitle: string,
@@ -42,6 +43,9 @@ const CategoryPage:React.FC<ICategoryPageProps> = ({pageTitle, categoryData})=>{
 
     return (
     <div className="container page-container">
+        <Helmet>
+            <title> Автоцентр | {pageTitle} </title>
+        </Helmet>
         <BreadCrumbs/>
         <h1 className="page-title"> {pageTitle}	</h1>
         <div className="flex-container">
