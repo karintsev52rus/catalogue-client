@@ -5,19 +5,19 @@ import { PartImage } from "../components/partImage"
 import { Loader } from "../components/common/loader"
 import { BreadCrumbs } from "../components/breadScrumb"
 
-interface ISinglePartPageProps{
-    categoryName: string
-}
 
-const SinglePartPage:React.FC<ISinglePartPageProps> = ({categoryName})=>{
+
+const SinglePartPage:React.FC = ()=>{
     const {partNumber} = useParams()
+    const decodedPartNumber = decodeURI(partNumber) 
+
     const [partInfo, setPartInfo] = useState(null)
     const [fetching, setFetching] = useState(true)
     const [error, setError] = useState(false)
 
 
     useEffect(()=>{
-        getPart(partNumber)
+        getPart(decodedPartNumber)
         .then((data)=>{
             setPartInfo(data)
             setFetching(false)

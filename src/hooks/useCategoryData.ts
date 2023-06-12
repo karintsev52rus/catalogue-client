@@ -14,12 +14,14 @@ const useCategoryData = (categoryData: string) => {
     SET_SELECTED_LIST,
     CREATE_PARENT_GROUPS_LIST,
     SET_ROOT_GROUP_FILTER,
+    SET_SEARCH_STRING_FILTER,
   } = partListActions;
 
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
   const loader = useTypedSelector(partListSelectors.loaderSelector);
 
   useEffect(() => {
+    dispatch({ type: SET_SEARCH_STRING_FILTER, payload: { searchString: "" } });
     if (loadedList.length > 0 && !loader) {
       dispatch({
         type: SET_ROOT_GROUP_FILTER,

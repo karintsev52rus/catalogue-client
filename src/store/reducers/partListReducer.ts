@@ -41,6 +41,7 @@ export const partListActions = {
   SET_ROOT_GROUP_FILTER: "SET_ROOT_GROUP_FILTER",
   CREATE_PARENT_GROUPS_LIST: "CREATE_PARENT_GROUPS_LIST",
   SET_SEARCH_STRING_FILTER: "SET_SEARCH_STRING_FILTER",
+  CLEAR_PARENT_GROUP_LIST: "CLEAR_PARENT_GROUP_LIST",
 };
 
 const getParentGroups = (partList: ISparePart[]) => {
@@ -59,7 +60,6 @@ const getParentGroups = (partList: ISparePart[]) => {
       };
     });
 
-    console.log(selectedPartGroups);
     return selectedPartGroups;
   } else return parentGroups;
 };
@@ -86,7 +86,7 @@ const parentGroupsFilterFunction = (partList: ISparePart[], state: IState) => {
     const filteredPartList = partList.filter((part: ISparePart) => {
       return filterNames.includes(part.parentGroup);
     });
-    console.log(filteredPartList);
+
     return filteredPartList;
   } else {
     return partList;
@@ -99,11 +99,15 @@ const parentGroupsFilter: IFilter = {
 };
 
 const rootGroupFilterFunction = (partList: ISparePart[], state: IState) => {
-  const rootGroup = state.rootGroup;
-  const result = partList.filter((part) => {
-    return part.rootGroup === rootGroup.groupName;
-  });
-  return result;
+  if (state.rootGroup.active) {
+    const rootGroup = state.rootGroup;
+    const result = partList.filter((part) => {
+      return part.rootGroup === rootGroup.groupName;
+    });
+    return result;
+  } else {
+    return partList;
+  }
 };
 
 const rootGroupFilter: IFilter = {
@@ -112,16 +116,36 @@ const rootGroupFilter: IFilter = {
 };
 
 const searchStringFilterFunction = (partList: ISparePart[], state: IState) => {
-  console.log(partList);
   if (!state.searchString.active) {
     return partList;
   }
   if (state.searchString.value.length === 0) {
     return partList;
   }
+
   const copyPartList = partList.slice(0, partList.length);
+
+  const searchStringArray = state.searchString.value.split(" ");
+  if (searchStringArray.length > 1) {
+    console.log(searchStringArray);
+    const result = copyPartList.filter((item) => {
+      let includes = true;
+      searchStringArray.forEach((string) => {
+        if (item.title.toLowerCase().indexOf(string.toLowerCase()) < 0) {
+          includes = false;
+        }
+      });
+      return includes === true;
+    });
+    return result;
+  }
+
   const filteredData = copyPartList.filter((item) => {
-    return item.title.toLowerCase().indexOf(state.searchString.value) >= 0;
+    return (
+      item.title
+        .toLowerCase()
+        .indexOf(state.searchString.value.toLowerCase()) >= 0
+    );
   });
   return filteredData;
 };
@@ -196,10 +220,8 @@ export const partListReducer = (
     case partListActions.SET_SELECTED_LIST:
       let newSelectedList = state.loadedList;
       filters.forEach((filter) => {
-        console.log(filter.name);
         newSelectedList = filter.filterFunction(newSelectedList, state);
       });
-      console.log(newSelectedList);
 
       return {
         ...state,
@@ -235,6 +257,12 @@ export const partListReducer = (
           groups: newParentGroups,
           active: true,
         },
+      };
+
+    case partListActions.CLEAR_PARENT_GROUP_LIST:
+      return {
+        ...state,
+        parentGroups: { ...state.parentGroups, active: false },
       };
 
     case partListActions.SET_SEARCH_STRING_FILTER:

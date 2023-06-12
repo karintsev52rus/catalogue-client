@@ -20,10 +20,15 @@ const parentGroupsSelector = (state: RootState) => {
   return state.partList.parentGroups;
 };
 
+const searchStringSelector = (state: RootState) => {
+  return state.partList.searchString;
+};
+
 export const partListSelectors = {
   loadedListSelector,
   renderListSelector,
   selectedListSelector,
   loaderSelector,
   parentGroupsSelector,
+  searchStringSelector,
 };

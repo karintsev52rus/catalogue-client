@@ -31,12 +31,12 @@ const router = createBrowserRouter([
           },
           children: [
             {
-              element: <CategoryPage pageTitle={routesData.jac.title} categoryData='jac' />,
+              element: <CategoryPage pageTitle={routesData.jac.title} categoryData={routesData.jac.categoryData} />,
               index: true
             },
             {
               path: ":partNumber",
-              element: <SinglePartPage categoryName='jac' />
+              element: <SinglePartPage />
             }
           ]
         },
@@ -47,12 +47,12 @@ const router = createBrowserRouter([
           },
           children: [
             {
-              element: <CategoryPage pageTitle= {routesData.usa.title} categoryData = "usa" />,
+              element: <CategoryPage pageTitle= {routesData.usa.title} categoryData = {routesData.usa.categoryData} />,
               index: true
             },
             {
               path: ":partNumber",
-              element: <SinglePartPage categoryName = "usa" />
+              element: <SinglePartPage />
             }
           ]
         },
@@ -63,16 +63,15 @@ const router = createBrowserRouter([
           },
           children: [
             {
-              element: <CategoryPage pageTitle = {routesData.usa.title} categoryData='europe' />,
+              element: <CategoryPage pageTitle = {routesData.usa.title} categoryData={routesData.europe.categoryData} />,
               index: true
             },
             {
               path: ":partNumber",
-              element: <SinglePartPage categoryName = "europe" />
+              element: <SinglePartPage/>
             }
           ]
         },
-        
         {
           path: "search/:searchPhrase",
           element: <SearchPage/>

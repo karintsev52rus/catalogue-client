@@ -10,6 +10,7 @@ import { usePartList } from "./usePartList";
 
 const useSearchForm = () => {
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
+
   const {
     SET_SELECTED_LIST,
     CREATE_PARENT_GROUPS_LIST,
@@ -17,10 +18,15 @@ const useSearchForm = () => {
     STOP_LOADING,
     SET_SEARCH_STRING_FILTER,
     CLEAR_RENDERED_LIST,
+    CLEAR_PARENT_GROUP_LIST,
   } = partListActions;
 
+  const searchStringValue = useTypedSelector(
+    partListSelectors.searchStringSelector
+  ).value;
+
   const [dropDownList, setDropdownList] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(searchStringValue);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onLoadParts } = usePartList();
@@ -38,19 +44,12 @@ const useSearchForm = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setInputValue(searchStringValue);
+  }, [searchStringValue]);
+
   const findData = () => {
     if (inputValue.length > 0) {
-      dispatch({
-        type: SET_SEARCH_STRING_FILTER,
-        payload: { searchString: inputValue },
-      });
-      dispatch({ type: CLEAR_RENDERED_LIST });
-
-      dispatch({ type: SET_SELECTED_LIST });
-      onLoadParts();
-      dispatch({
-        type: CREATE_PARENT_GROUPS_LIST,
-      });
       navigate(`/search/${inputValue}`);
     }
   };
@@ -79,7 +78,7 @@ const useSearchForm = () => {
     }
   };
 
-  return { onInput, dropDownList, findData };
+  return { onInput, dropDownList, findData, inputValue };
 };
 
 export { useSearchForm };

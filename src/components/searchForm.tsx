@@ -5,7 +5,7 @@ import SearchIcon from "../assets/img/catalogue/magnifying-glass-solid.svg"
 
 const SearchForm: React.FC = ()=>{
     
-    const {onInput, dropDownList, findData} = useSearchForm()
+    const {onInput, dropDownList, findData, inputValue} = useSearchForm()
     const [showDropdownList, setShowDropdownList] = useState(true)
 
     useEffect(()=>{
@@ -39,6 +39,7 @@ const SearchForm: React.FC = ()=>{
             className ="search-input"
             placeholder="Название запчасти или артикул"
             onChange = {onInput}
+            value = {inputValue}
             />
             {
                 showDropdownList? <DropDownList setShowDropdownList = {setShowDropdownList} dropDownListData = {dropDownList} /> : null

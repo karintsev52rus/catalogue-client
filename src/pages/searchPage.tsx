@@ -4,6 +4,7 @@ import { SparePartList } from "../components/sparePartList"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { partListSelectors } from "../store/selectors"
 import { BreadCrumbs } from "../components/breadScrumb"
+import { useSearchPage } from "../hooks/useSearchPage"
 
 import { ISparePart } from "../types/sparePart"
 
@@ -11,6 +12,9 @@ const SearchPage: React.FC = ()=>{
 
     const {searchPhrase} = useParams()
     const renderList: ISparePart[] = useTypedSelector(partListSelectors.renderListSelector)
+    useSearchPage(searchPhrase)
+
+    
 
     return (
         <div className="container page-container">
