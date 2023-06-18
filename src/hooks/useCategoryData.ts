@@ -15,6 +15,8 @@ const useCategoryData = (categoryData: string) => {
     CREATE_PARENT_GROUPS_LIST,
     SET_ROOT_GROUP_FILTER,
     SET_SEARCH_STRING_FILTER,
+    CLEAR_PARENT_GROUP_LIST,
+    CLEAR_RENDERED_LIST,
   } = partListActions;
 
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
@@ -22,7 +24,11 @@ const useCategoryData = (categoryData: string) => {
 
   useEffect(() => {
     dispatch({ type: SET_SEARCH_STRING_FILTER, payload: { searchString: "" } });
+
     if (loadedList.length > 0 && !loader) {
+      dispatch({ type: CLEAR_PARENT_GROUP_LIST });
+      dispatch({ type: CLEAR_RENDERED_LIST });
+
       dispatch({
         type: SET_ROOT_GROUP_FILTER,
         payload: { rootGroup: categoryData },

@@ -14,7 +14,6 @@ const Header: React.FC = ()=>{
         setIsOpen(!isOpen)
     }
 
-    
     return (
         <>
         <header>
