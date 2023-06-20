@@ -42,13 +42,22 @@
     z-index: -1
 
 .dropdown-list_item
+    transition: 0.2s
     padding: 8px 15px
     list-style: none
     border-bottom: 1px dotted $greyColor
     >a
         color: $blackColor
-    :hover
-        color: $redColor
+
+.dropdown-list_item:hover
+    background-color: $redColor
+    > a
+        color: #fff
+
+.dropdown-list_item-active
+    background-color: $redColor
+    > a
+        color: #fff
 
 @media ( max-width: 768px )
     .search-form_container

@@ -249,7 +249,10 @@ export const partListReducer = (
       };
 
     case partListActions.SET_SELECTED_LIST:
-      let newSelectedList = state.loadedList;
+      let newSelectedList = state.loadedList.slice(
+        0,
+        state.loadedList.length - 1
+      );
       filters.forEach((filter) => {
         newSelectedList = filter.filterFunction(newSelectedList, state);
       });

@@ -18,7 +18,6 @@ const useSearchForm = () => {
     STOP_LOADING,
     SET_SEARCH_STRING_FILTER,
     CLEAR_RENDERED_LIST,
-    CLEAR_PARENT_GROUP_LIST,
   } = partListActions;
 
   const searchStringValue = useTypedSelector(
@@ -94,7 +93,7 @@ const useSearchForm = () => {
     }
   };
 
-  return { onInput, dropDownList, findData, inputValue };
+  return { onInput, dropDownList, findData, inputValue, setInputValue };
 };
 
 export { useSearchForm };
