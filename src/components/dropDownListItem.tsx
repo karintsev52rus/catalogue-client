@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { ISparePart } from "../types/sparePart";
 import { Link } from "react-router-dom";
 
@@ -11,12 +11,22 @@ interface IDDListItemProps {
 
 const DropDownListItem: React.FC <IDDListItemProps> = ({index, activeIndex, sparePartData, setInputValue}) => {
 
+
   const onClickListItem = (title: string)=>{
     setInputValue(title)
     console.log(title)
 }
 
   const listItemClass = index === activeIndex ? "dropdown-list_item-active" : ""
+
+  useEffect(()=>{
+    if (index === activeIndex){
+      const item = document.querySelector(".dropdown-list_item-active")
+      if (item){
+        item.scrollIntoView(false)
+      }
+    }
+  }, [activeIndex])
 
   return <li className={`dropdown-list_item ${listItemClass}`}
           onClick={()=>{onClickListItem(sparePartData.title)}}

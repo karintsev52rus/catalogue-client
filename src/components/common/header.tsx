@@ -70,8 +70,8 @@ const Header: React.FC = ()=>{
                             <div className="contact-info__phone-icon">
                             </div>
                             <div className="contact-info__phone">
-                                <a href="tel:89625070643" className="link phone_number">8 962 507 06 43</a>
-                                <div> Ремонт деталей ДВС </div>
+                                <a href="tel:89036046426" className="link phone_number">+7 903 604 64 26</a>
+                                <div> Запчасти </div>
                             </div>
                         </div>
                         <div className="contact-info__item">

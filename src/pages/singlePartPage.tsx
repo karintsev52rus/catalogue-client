@@ -42,9 +42,9 @@ const SinglePartPage:React.FC = ()=>{
             </div>
             {!fetching ? 
             <div className="part-info">
-                {/* <div className="spare-part_brand spare-part_prop">
-                    <span className = "spare-part_prop_name"> бренд:</span  ><span className = "spare-part_prop_value">{partInfo.brand}</span>
-                </div> */}
+                <div className="spare-part_brand spare-part_prop">
+                    <span className = "spare-part_prop_name"> артикул:</span  ><span className = "spare-part_prop_value">{partInfo.partNumber}</span>
+                </div>
                 <div className="spare-part_price spare-part_prop">
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {partInfo.price}  Р</span>
                 </div>
@@ -59,9 +59,9 @@ const SinglePartPage:React.FC = ()=>{
         }
         </div>
         <div className="contact-info">
-            По вопросам приобретения запчастей обращайтесь по следующим телефонам:
+            По вопросам приобретения и подбора запчастей обращайтесь по следующим телефонам:
             <br/>
-            89036046426
+            <a href="tel:89036046426" className="">+7 903 604 64 26</a>
         </div>
         </div>
     ) 

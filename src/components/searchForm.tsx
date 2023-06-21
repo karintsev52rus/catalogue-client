@@ -53,12 +53,17 @@ const SearchForm: React.FC = ()=>{
 
         switch (e.code) {
             case "ArrowDown":
-                setActiveIndex((prevValue)=> prevValue + 1 )
+                if (activeIndex < dropDownList.length -1 ){
+                    setActiveIndex((prevValue)=> prevValue + 1 )
+                }
                 break
 
             case "ArrowUp":
-                setActiveIndex((prevValue)=> prevValue - 1 )
+                if (activeIndex > 0){
+                    setActiveIndex((prevValue)=> prevValue - 1 )
+                }
                 break
+                
 
             case "Enter":
                 const partData = getPartData(activeIndex)
