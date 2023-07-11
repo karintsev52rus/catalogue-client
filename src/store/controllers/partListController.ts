@@ -34,5 +34,5 @@ const parentGroupsFilter: IFilter = {
 
 export const PartListController: IPartListController = {
   filters: [rootGroupFilter, parentGroupsFilter, searchStringFilter],
-  sorters: [stockSorter, titleSorter],
+  sorters: [titleSorter, stockSorter],
 };
