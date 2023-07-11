@@ -3,20 +3,21 @@ import FilterIcon from '../assets/img/catalogue/filter-solid.svg'
 import { useState, useEffect } from "react"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import {partListSelectors} from "../store/selectors"
-import { partListActions } from "../store/reducers/partListReducer"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "../hooks/useAppDispatch"
 import { usePartList } from "../hooks/usePartList"
+import { partListSliceActions } from "../store/reducers/partListReducer"
 
 const Sidebar: React.FC = ()=>{
-    const dispatch = useDispatch()
 
     const [expand, setExpand] = useState(false)
     const partGroups = useTypedSelector(partListSelectors.parentGroupsSelector)
     const {onLoadParts} = usePartList()
+    const appDispatch = useAppDispatch()
+    const {setSelectedList,
+    setParentGroupList, clearRenderedList} = partListSliceActions
 
     useEffect(()=>{
-
-        dispatch({type: partListActions.SET_SELECTED_LIST})
+        appDispatch((setSelectedList()))
         onLoadParts()
     }, [partGroups])
 
@@ -30,8 +31,8 @@ const Sidebar: React.FC = ()=>{
 
     const changePartGroupsList = (e: React.ChangeEvent<HTMLInputElement>, index: number)=>{
         const group = {name: e.target.name, index : index, checked: e.target.checked}
-        dispatch({type: partListActions.UPDATE_PARENT_GROUP_LIST, payload: {group}})
-        dispatch({type: partListActions.CLEAR_RENDERED_LIST})
+        appDispatch(setParentGroupList({group}))
+        appDispatch(clearRenderedList())
     }
 
     return (

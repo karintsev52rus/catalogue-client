@@ -1,5 +1,4 @@
 import { getImagePath } from "../helpers/getImagePath";
-import { ISparePart } from "../types/sparePart";
 
 const server = process.env.SERVER;
 const staticPath = process.env.STATIC_PATH;

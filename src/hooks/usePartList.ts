@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { partListActions } from "../store/reducers/partListReducer";
 import { partListSelectors } from "../store/selectors";
 import { useTypedSelector } from "./useTypedSelector";
+import { partListSliceActions } from "../store/reducers/partListReducer";
+import { useAppDispatch } from "./useAppDispatch";
 
 const usePartList = () => {
-  const dispatch = useDispatch();
-
+  const appDispatch = useAppDispatch();
   const partsLoaderLimit = 10;
-
-  const { ADD_RENDERED_LIST } = partListActions;
 
   const { loaderSelector } = partListSelectors;
 
@@ -17,12 +14,11 @@ const usePartList = () => {
 
   const [partsCount, setPartsCount] = useState(0);
 
+  const { addRenderedList } = partListSliceActions;
+
   const onLoadParts = () => {
     console.log("add");
-    dispatch({
-      type: ADD_RENDERED_LIST,
-      payload: { partsLoaderLimit: partsLoaderLimit },
-    });
+    appDispatch(addRenderedList({ partsLoaderLimit: partsLoaderLimit }));
   };
 
   const onScrollEnd = () => {

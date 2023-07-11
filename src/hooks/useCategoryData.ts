@@ -1,46 +1,35 @@
 import { useEffect } from "react";
-import { getPartList } from "../actions/dataActions";
-import { useDispatch } from "react-redux";
-import { partListActions } from "../store/reducers/partListReducer";
 import { usePartList } from "./usePartList";
 import { partListSelectors } from "../store/selectors";
 import { useTypedSelector } from "./useTypedSelector";
-import { ISparePart } from "../types/sparePart";
-const useCategoryData = (categoryData: string) => {
-  const dispatch = useDispatch();
-  const { onLoadParts } = usePartList();
+import { useAppDispatch } from "./useAppDispatch";
+import { partListSliceActions } from "../store/reducers/partListReducer";
 
-  const {
-    SET_SELECTED_LIST,
-    CREATE_PARENT_GROUPS_LIST,
-    SET_ROOT_GROUP_FILTER,
-    SET_SEARCH_STRING_FILTER,
-    CLEAR_PARENT_GROUP_LIST,
-    CLEAR_RENDERED_LIST,
-  } = partListActions;
+const useCategoryData = (categoryData: string) => {
+  const appDispatch = useAppDispatch();
+  const { onLoadParts } = usePartList();
 
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
   const loader = useTypedSelector(partListSelectors.loaderSelector);
 
+  const {
+    setSearchStringFilter,
+    clearParentGroupList,
+    clearRenderedList,
+    setRootGroupFilter,
+    setSelectedList,
+    createParentGroupsList,
+  } = partListSliceActions;
+
   useEffect(() => {
-    dispatch({ type: SET_SEARCH_STRING_FILTER, payload: { searchString: "" } });
+    appDispatch(setSearchStringFilter({ searchString: "" }));
 
     if (loadedList.length > 0 && !loader) {
-      dispatch({ type: CLEAR_PARENT_GROUP_LIST });
-      dispatch({ type: CLEAR_RENDERED_LIST });
-
-      dispatch({
-        type: SET_ROOT_GROUP_FILTER,
-        payload: { rootGroup: categoryData },
-      });
-
-      dispatch({
-        type: SET_SELECTED_LIST,
-      });
-
-      dispatch({
-        type: CREATE_PARENT_GROUPS_LIST,
-      });
+      appDispatch(clearParentGroupList());
+      appDispatch(clearRenderedList());
+      appDispatch(setRootGroupFilter({ rootGroup: categoryData }));
+      appDispatch(setSelectedList());
+      appDispatch(createParentGroupsList());
       onLoadParts();
     }
   }, [loadedList]);

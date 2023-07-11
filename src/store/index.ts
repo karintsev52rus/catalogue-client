@@ -1,11 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { partListReducer } from "./reducers/partListReducer";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import partListReducer from "./reducers/partListReducer";
+
+const rootReducer = combineReducers({
+  partList: partListReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    partList: partListReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = ReturnType<typeof store.dispatch>;
+export type AppDispatch = typeof store.dispatch;
