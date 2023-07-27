@@ -55,7 +55,10 @@ const useSearchForm = () => {
       const result = loadedList.filter((part: ISparePart) => {
         let includes = true;
         searchStringArray.forEach((string) => {
-          if (part.title.toLowerCase().indexOf(string.toLowerCase()) < 0) {
+          if (
+            part.title.toLowerCase().indexOf(string.toLowerCase()) < 0 &&
+            part.partNumber.toLowerCase().indexOf(string.toLowerCase()) < 0
+          ) {
             includes = false;
           }
         });
@@ -64,7 +67,10 @@ const useSearchForm = () => {
       setDropdownList(result);
     } else {
       const filteredData = loadedList.filter((part: ISparePart) => {
-        return part.title.toLocaleLowerCase().indexOf(searchPhrase) >= 0;
+        return (
+          part.title.toLocaleLowerCase().indexOf(searchPhrase) >= 0 ||
+          part.partNumber.toLocaleLowerCase().indexOf(searchPhrase) >= 0
+        );
       });
       setDropdownList(filteredData);
     }

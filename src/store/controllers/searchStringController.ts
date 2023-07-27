@@ -16,23 +16,30 @@ const searchStringFilterFunction = (partList: ISparePart[], state: IState) => {
     const result = copyPartList.filter((item) => {
       let includes = true;
       searchStringArray.forEach((string) => {
-        if (item.title.toLowerCase().indexOf(string.toLowerCase()) < 0) {
+        if (
+          item.title.toLowerCase().indexOf(string.toLowerCase()) < 0 &&
+          item.partNumber.toLowerCase().indexOf(string.toLowerCase()) < 0
+        ) {
           includes = false;
         }
       });
       return includes === true;
     });
     return result;
-  }
+  } else {
+    const filteredData = copyPartList.filter((item) => {
+      return (
+        item.title
+          .toLowerCase()
+          .indexOf(state.searchString.value.toLowerCase()) >= 0 ||
+        item.partNumber
+          .toLowerCase()
+          .indexOf(state.searchString.value.toLowerCase()) >= 0
+      );
+    });
 
-  const filteredData = copyPartList.filter((item) => {
-    return (
-      item.title
-        .toLowerCase()
-        .indexOf(state.searchString.value.toLowerCase()) >= 0
-    );
-  });
-  return filteredData;
+    return filteredData;
+  }
 };
 
 export { searchStringFilterFunction };
