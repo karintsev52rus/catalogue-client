@@ -957,7 +957,7 @@ body._touch .sub-menu-open > a{
 .service-container{
 	display: flex;
 	max-width: 100%;
-	min-height: 600px;
+	padding-bottom: 100px;
 }
 
 .sidebar{

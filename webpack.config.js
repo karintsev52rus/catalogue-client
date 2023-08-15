@@ -115,7 +115,8 @@ module.exports = {
       template: "src/index.html",
       minify: {
         collapseWhitespace: (production? true : false)
-      }
+      },
+      favicon: "./src/favicon.ico"
     }),
     new MiniCssExtractPlugin({
       filename: "styles/[name].css",

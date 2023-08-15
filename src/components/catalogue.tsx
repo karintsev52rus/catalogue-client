@@ -51,7 +51,10 @@ const Catalogue = ()=>{
                 <h3>Контакты</h3>
                 <p className="text">
                 Для заказа и подбора запчасти по VIN обращайтесь по телефону <a href="tel:89092939196">+7 909 293 91 96</a> или на почту jac-dzr@yandex.ru
+                <br />
+                Адрес склада: Дзержинск Автозаводское шоссе 81 корпус 6 
                 </p>
+
                 <div className="contacts-map" style={{height: "450px"}}>
                 <iframe src="https://yandex.ru/map-widget/v1/?lang=ru_RU&scroll=true&um=constructor%3A56b504edc208361e170ce847100680b61a15303981059117f5ace5ae53c7fd98" width={"100%"} height={"100%"} style={{display: "block"}} ></iframe>
                 </div>
