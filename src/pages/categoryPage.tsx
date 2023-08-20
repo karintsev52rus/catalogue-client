@@ -17,6 +17,7 @@ interface ICategoryPageProps{
 
 
 const CategoryPage:React.FC<ICategoryPageProps> = ({pageTitle, categoryData})=>{
+
     useCategoryData(categoryData)
 
     const {renderListSelector, loaderSelector} = partListSelectors
