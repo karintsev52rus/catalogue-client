@@ -3,9 +3,15 @@ import { touch } from "../../assets/js/touch"
 import { SearchForm } from "../searchForm"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useTypedSelector } from "../../hooks/useTypedSelector"
+import { cartListSelector } from "../../store/selectors"
+
 
 
 const Header: React.FC = ()=>{
+
+    const cartList = useTypedSelector(cartListSelector)
+    const cartListLength = cartList.length
 
     touch()
     const [isOpen, setIsOpen] = useState(false)
@@ -28,19 +34,27 @@ const Header: React.FC = ()=>{
                         <span></span>
                     </div>
                     <ul className={isOpen? "menu header__menu menu-active" : "menu header__menu"}>
-                        <li className="menu-item">
-                            <a href = "https://asc-nn.ru/">Главная</a>
-                        </li>
-                        <li className="menu-item">
-                            <a href = "https://asc-nn.ru/services">Услуги</a>
-                        </li>
+
                         <li className="menu-item">
                             <Link
                             onClick = {toggleMenu}
                             to = "/">Запчасти</Link>
                         </li>
+
                         <li className="menu-item">
-                            <a href = "https://asc-nn.ru/foto">Фото</a>
+                            <Link 
+                            onClick = {toggleMenu}
+                            to="/cart"> Корзина  {cartListLength > 0 ? `(${cartListLength})` : "" } </Link>
+                        </li>
+                        <li className="menu-item">
+                            <Link
+                            onClick = {toggleMenu}
+                            to = "/orders">
+                                Заказы
+                            </Link>
+                        </li>
+                        <li className="menu-item">
+                            <a href = "https://asc-nn.ru/">Сервис</a>
                         </li>
                         <li className="menu-item">
                             <a href = "https://asc-nn.ru/o-kompanii">О компании</a>
@@ -81,7 +95,9 @@ const Header: React.FC = ()=>{
                                 Дзержинск, Автозаводское шоссе 81 корп. 6
                             </span>
                         </div>
+                        
                     </div>
+                    
                 </div>
             </div>
         </div>

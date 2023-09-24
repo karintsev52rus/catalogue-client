@@ -5,6 +5,7 @@
 @use './_search_form.sass'
 @use './_spare_part_image.sass'
 @use './_single_page.sass'
+@use './_cart.sass'
 
 a
     color: $redColor
@@ -20,6 +21,14 @@ a
     font: 500 14px 'Play'
     text-decoration: none
     text-transform: uppercase
+
+.btn-primary
+    --bs-btn-active-bg: #E50930
+
+.btn:hover
+    background-color: $redColor
+.btn:disabled
+    background-color: $redColor
 
 .catalogue-category
     height: 250px

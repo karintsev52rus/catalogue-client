@@ -12,16 +12,36 @@ const selectedListSelector = (state: RootState) => {
   return state.partList.selectedList;
 };
 
-const loaderSelector = (state: RootState) => {
-  return state.partList.loading;
-};
-
 const parentGroupsSelector = (state: RootState) => {
   return state.partList.parentGroups;
 };
 
 const searchStringSelector = (state: RootState) => {
   return state.partList.searchString;
+};
+
+const loaderSelector = (state: RootState) => {
+  return state.partList.loading;
+};
+
+const cartListSelector = (state: RootState) => {
+  return state.cart.cartList;
+};
+
+const cartListErrorSelector = (state: RootState) => {
+  return state.cart.errors;
+};
+
+const modalSelector = (state: RootState) => {
+  return state.modal;
+};
+
+const orderSelector = (state: RootState) => {
+  return state.order;
+};
+
+const sendOrderSelector = (state: RootState) => {
+  return state.order.send;
 };
 
 export const partListSelectors = {
@@ -32,3 +52,8 @@ export const partListSelectors = {
   parentGroupsSelector,
   searchStringSelector,
 };
+
+export { cartListSelector, cartListErrorSelector };
+export { modalSelector };
+export { orderSelector };
+export { sendOrderSelector };

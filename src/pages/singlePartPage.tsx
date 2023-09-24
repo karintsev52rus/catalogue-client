@@ -4,6 +4,7 @@ import { getPart } from "../actions/dataActions"
 import { PartImage } from "../components/partImage"
 import { Loader } from "../components/common/loader"
 import { BreadCrumbs } from "../components/breadScrumb"
+import { CartModal } from "../components/cartModal"
 import Helmet from "react-helmet"
 
 
@@ -49,7 +50,12 @@ const SinglePartPage:React.FC = ()=>{
                     <span className = "spare-part_prop_name"> цена: </span> <span className = "spare-part_prop_value" > {partInfo.price}  Р</span>
                 </div>
                 <div className="spare-part_available spare-part_prop">
-                {partInfo.quantity > 0 ? <span className = "spare-part_prop_value in-stock" > В наличии </span> :
+                {partInfo.quantity > 0 ? <>
+                    <span className = "spare-part_prop_value in-stock" > В наличии </span> 
+                    <CartModal partInfo={partInfo}/>
+                </> 
+                
+                :
                         <span className = "spare-part_prop_value out-stock" > Под заказ </span>
                     }
                 </div>

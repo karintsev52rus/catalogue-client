@@ -11,8 +11,6 @@ import { ISparePart } from "../types/sparePart"
 
 const SearchPage: React.FC = ()=>{
 
-    
-
     const {searchPhrase} = useParams()
     const renderList: ISparePart[] = useTypedSelector(partListSelectors.renderListSelector)
     useSearchPage(searchPhrase)

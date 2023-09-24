@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getPartGroups } from "../actions/dataActions";
 import Helmet from "react-helmet"
 
+
 const Catalogue = ()=>{
     const [ groupsData, setGroupsData ] =  useState([])
     const [fetching, setFetching] = useState(true)
@@ -14,6 +15,8 @@ const Catalogue = ()=>{
             setFetching(false)
         })
     }, [])
+
+    
 
     return (
         <div className="container page-container">

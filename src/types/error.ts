@@ -1,3 +1,13 @@
-type error = {statusText : string, message: string}
+enum ErrorTypes {
+  qtyInCartMoreThanStock = "qtyInCartMoreThanStock",
+  notAllReqFieldsFilled = "notAllReqFieldsFilled",
+}
 
-export {error}
+interface IError {
+  error: boolean;
+  errorMessage: string;
+  errorType: ErrorTypes;
+  errorTitle: "Ошибка";
+}
+
+export { ErrorTypes, IError };

@@ -3,6 +3,7 @@ import { ISparePart } from "../types/sparePart"
 import { PartImage } from "./partImage"
 import { getImage } from "../actions/dataActions"
 import { Link } from "react-router-dom"
+import { CartModal } from "./cartModal"
 
 type SPCardProps = {
     partInfo: ISparePart
@@ -18,6 +19,9 @@ const SparePartCard:React.FC<SPCardProps> = ({partInfo})=>{
             </div>
             
             <div className="divider"></div>
+            <Link to = {`/${rootGroup}/${partNumber}`}>
+                
+            
             <div className = "spare-part_info">
                 <div className="spare-part_title spare-part_prop">{title}</div>
                 {/* <div className="spare-part_brand spare-part_prop">
@@ -30,12 +34,16 @@ const SparePartCard:React.FC<SPCardProps> = ({partInfo})=>{
                     {quantity > 0 ? <span className = "spare-part_prop_value in-stock" > В наличии </span> :
                         <span className = "spare-part_prop_value out-stock" > Под заказ </span>
                     }
-                    
                 </div>
+                
             </div>
-            <Link to = {`/${rootGroup}/${partNumber}`}>
-                <button className = "catalogue-button"> Подробнее </button>
             </Link>
+            <div className="card-footer d-flex flex-column align-items-end">
+                    <CartModal partInfo={partInfo}/>
+                </div>
+            
+            
+
         </div>
     )
 }
