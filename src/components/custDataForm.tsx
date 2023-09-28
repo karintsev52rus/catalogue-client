@@ -24,6 +24,7 @@ const CustDataForm: React.FC = ()=>{
     const appDispatch = useAppDispatch()
     const cartList = useTypedSelector(cartListSelector)
     const [token, setToken] = useState('');
+    const clientKey = process.env.YA_KEY
 
     const errors = [{errorType: emailError, value: email}, {errorType: phoneError, value: phoneNumber}, {errorType: custNameError, value: name}]
     const haveErrors = errors.filter((err)=>{
@@ -131,11 +132,11 @@ const CustDataForm: React.FC = ()=>{
         </FloatingLabel>
         </Col>
         </Form>
-        {/* <SmartCaptcha
-        sitekey="ysc1_SFJqEVFdUzrcFyi4WZfwuA7QdaTPAiznNKNvnIike133693c"
+        <SmartCaptcha
+        sitekey={clientKey}
         language = "ru"
         onSuccess={setToken}
-        /> */}
+        />
         <Button
         type = "submit"
         onClick = {createNewOrder}
