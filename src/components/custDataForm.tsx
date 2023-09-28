@@ -9,6 +9,7 @@ import { cartListSelector, orderSelector } from "../store/selectors"
 import { SmartCaptcha } from "@yandex/smart-captcha"
 import { modalActions } from "../store/reducers/modalReducer"
 import { ModalWindow } from "./common/modalWindow"
+import { useNavigate } from "react-router-dom"
 
 
 const CustDataForm: React.FC = ()=>{
@@ -19,14 +20,16 @@ const CustDataForm: React.FC = ()=>{
     const [phoneNumber, setPhoneNumber] = useState(custPhone.value)
     const [emailError, setEmailError] = useState(false)
     const [phoneError, setPhoneError] = useState(false)
+    const [emptyCart, setEmptyCart] = useState(false)
     const [name, setName] = useState(custName.value)
     const [custNameError, setCustNameError] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const {createOrder} = orderActions
     const appDispatch = useAppDispatch()
     const cartList = useTypedSelector(cartListSelector)
+    const navigate = useNavigate()
+    
     const [status, setStatus] = useState('hidden');
-
     const handleChallengeVisible = useCallback(() => setStatus('visible'), []);
     const handleChallengeHidden = useCallback(() => setStatus('hidden'), []);
     const handleNetworkError = useCallback(() => setStatus('network-error'), []);
@@ -42,13 +45,20 @@ const CustDataForm: React.FC = ()=>{
     const [token, setToken] = useState('');
     const clientKey = process.env.YA_KEY
 
+    useEffect(()=>{
+      if (!cartList.length){
+        setEmptyCart(true)
+      }
+    }, [cartList])
+
     const errors = [
       {errorType: emailError, value: email}, 
       {errorType: phoneError, value: phoneNumber}, 
-      {errorType: custNameError, value: name}
+      {errorType: custNameError, value: name},
+      {errorType: emptyCart }
     ]
     const haveErrors = errors.filter((err)=>{
-      return err.errorType === true || err.value.length === 0
+      return err.errorType === true || err.value?.length === 0
     })
 
 
@@ -74,6 +84,8 @@ const CustDataForm: React.FC = ()=>{
           appDispatch(modalActions.setModalShow({show: true}))
           return
         }
+
+
 
         const orderProps = {custData, orderData, orderList: cartList}
         appDispatch(createOrder({orderProps}))
@@ -158,8 +170,7 @@ const CustDataForm: React.FC = ()=>{
         </FloatingLabel>
         </Col>
         </Form>
-        <>
-          Status: {status}
+        <div className="mt-3 mb-3">
           <SmartCaptcha
           sitekey={clientKey}
           language = "ru"
@@ -169,11 +180,13 @@ const CustDataForm: React.FC = ()=>{
           onSuccess={handleSuccess}
           onTokenExpired={handleTokenExpired}
           />
-        </>
+        </div>
         
         <Button
         type = "submit"
-        onClick = {createNewOrder}
+        onClick = {()=>{
+          createNewOrder()
+        }}
         disabled = {disabled}
         className = "catalogue-button" >
             Отправить заказ
