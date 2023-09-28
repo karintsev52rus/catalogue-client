@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Form, Col, FloatingLabel, Button } from "react-bootstrap"
 import { validateCustName, validateEmail, validatePhone, validatorInputType } from "../helpers/validators"
 import { useAppDispatch } from "../hooks/useAppDispatch"
@@ -7,6 +7,8 @@ import { sendNewOrder } from "../store/thunks/orderThunk"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { cartListSelector, orderSelector } from "../store/selectors"
 import { SmartCaptcha } from "@yandex/smart-captcha"
+import { modalActions } from "../store/reducers/modalReducer"
+import { ModalWindow } from "./common/modalWindow"
 
 
 const CustDataForm: React.FC = ()=>{
@@ -23,10 +25,28 @@ const CustDataForm: React.FC = ()=>{
     const {createOrder} = orderActions
     const appDispatch = useAppDispatch()
     const cartList = useTypedSelector(cartListSelector)
+    const [status, setStatus] = useState('hidden');
+
+    const handleChallengeVisible = useCallback(() => setStatus('visible'), []);
+    const handleChallengeHidden = useCallback(() => setStatus('hidden'), []);
+    const handleNetworkError = useCallback(() => setStatus('network-error'), []);
+    const handleSuccess = useCallback((token: string) => {
+      setStatus('success');
+      setToken(token);
+    }, []);
+    const handleTokenExpired = useCallback(() => {
+      setStatus('token-expired');
+      setToken('');
+    }, []);
+
     const [token, setToken] = useState('');
     const clientKey = process.env.YA_KEY
 
-    const errors = [{errorType: emailError, value: email}, {errorType: phoneError, value: phoneNumber}, {errorType: custNameError, value: name}]
+    const errors = [
+      {errorType: emailError, value: email}, 
+      {errorType: phoneError, value: phoneNumber}, 
+      {errorType: custNameError, value: name}
+    ]
     const haveErrors = errors.filter((err)=>{
       return err.errorType === true || err.value.length === 0
     })
@@ -47,6 +67,12 @@ const CustDataForm: React.FC = ()=>{
           orderDate,
           orderTime,
           orderNumber
+        }
+
+        if(status !== 'success'){
+          appDispatch(modalActions.setModalInfo({modalTitle: "Ошибка!", modalMessage: "Подтвердите, что вы не робот!"}))
+          appDispatch(modalActions.setModalShow({show: true}))
+          return
         }
 
         const orderProps = {custData, orderData, orderList: cartList}
@@ -132,11 +158,19 @@ const CustDataForm: React.FC = ()=>{
         </FloatingLabel>
         </Col>
         </Form>
-        <SmartCaptcha
-        sitekey={clientKey}
-        language = "ru"
-        onSuccess={setToken}
-        />
+        <>
+          Status: {status}
+          <SmartCaptcha
+          sitekey={clientKey}
+          language = "ru"
+          onChallengeVisible={handleChallengeVisible}
+          onChallengeHidden={handleChallengeHidden}
+          onNetworkError={handleNetworkError}
+          onSuccess={handleSuccess}
+          onTokenExpired={handleTokenExpired}
+          />
+        </>
+        
         <Button
         type = "submit"
         onClick = {createNewOrder}
@@ -144,6 +178,7 @@ const CustDataForm: React.FC = ()=>{
         className = "catalogue-button" >
             Отправить заказ
         </Button>
+        <ModalWindow/>
     </>
     )
 }
