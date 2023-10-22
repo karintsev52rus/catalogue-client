@@ -1,11 +1,10 @@
-import { useTypedSelector } from "../hooks/useTypedSelector"
-import { cartListSelector } from "../store/selectors"
+
 import { ISparePartInCart } from "../types/sparePart"
 import { Table } from "react-bootstrap"
 
-const OrderList: React.FC = ()=>{
+const OrderList: React.FC<{partList: ISparePartInCart[] }> = ({partList})=>{
 
-    const cartList:ISparePartInCart[]  = useTypedSelector(cartListSelector)
+    const cartList = partList
     const totalPrice = cartList.reduce((previousValue: number, currentItem: ISparePartInCart)=>{
         return previousValue + currentItem.inCart * currentItem.price
     }, 0)

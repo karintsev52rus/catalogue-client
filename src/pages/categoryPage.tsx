@@ -20,9 +20,9 @@ const CategoryPage:React.FC<ICategoryPageProps> = ({pageTitle, categoryData})=>{
 
     useCategoryData(categoryData)
 
-    const {renderListSelector, loaderSelector} = partListSelectors
+    const {renderListSelector, partListLoading} = partListSelectors
     const renderList: ISparePart[] = useTypedSelector(renderListSelector)
-    const fetching = useTypedSelector(loaderSelector)
+    const fetching = useTypedSelector(partListLoading)
 
     const {onScrollEnd} = usePartList()
     const addNewParts = ()=>{

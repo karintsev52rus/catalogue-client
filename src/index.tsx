@@ -17,6 +17,10 @@ import { routesData } from './routes/routes';
 import { CartPage } from './pages/cartPage';
 import {OrdersPage} from './pages/ordersPage'
 import { NewOrderPage } from './pages/newOrderPage';
+import { RegistrationPage } from './pages/registrationPage';
+import { LoginPage } from './pages/loginPage';
+import { Private } from './components/common/private';
+import { ActivationPage } from './pages/activationPage';
 
 
 const router = createBrowserRouter([
@@ -33,19 +37,32 @@ const router = createBrowserRouter([
           path: "cart",
           element: <CartPage/>
         },
-        {path: "orders",
+        {
+          path: "orders",
           children: [
             {
-              element: <OrdersPage/>,
-              
+              element: <Private component={OrdersPage}/>,
               index: true
             },
             {
-            element: <NewOrderPage/>,
+            element: <Private component={NewOrderPage}/>,
             path: "new_order"
             }
           ]
         },
+        {
+          path: "activation/:activationLink",
+          element: <ActivationPage/>
+        },
+        {
+          path: "registration",
+          element: <RegistrationPage/>
+        },
+        {
+          path: "login",
+          element: <LoginPage/>
+        },
+
         {
           path: "jac",
           handle: {

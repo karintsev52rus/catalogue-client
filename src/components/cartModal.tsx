@@ -1,10 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
-import {ButtonGroup, Button} from "react-bootstrap";
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { ISparePart } from '../types/sparePart';
-import Form from 'react-bootstrap/Form';
-import { useAppDispatch } from '../hooks/useAppDispatch';
-import { cartActions } from '../store/reducers/cartReducer';
 import { PartCounter } from './partCounter';
 import { cartListSelector } from '../store/selectors';
 import { useTypedSelector } from '../hooks/useTypedSelector';

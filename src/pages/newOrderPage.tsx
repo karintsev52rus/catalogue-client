@@ -2,7 +2,7 @@
 import { OrderList } from "../components/orderList"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useAppDispatch } from "../hooks/useAppDispatch"
-import { orderSelector, sendOrderSelector } from "../store/selectors"
+import { cartListSelector, orderSelector, sendOrderSelector } from "../store/selectors"
 import { modalActions } from "../store/reducers/modalReducer"
 import { cartActions } from "../store/reducers/cartReducer"
 import { CustDataForm } from "../components/custDataForm"
@@ -11,23 +11,34 @@ import { ModalWindow } from "../components/common/modalWindow"
 import { useEffect } from "react"
 import { orderActions } from "../store/reducers/orderReducer"
 
-
 const NewOrderPage: React.FC = ()=>{
-  const {send, custData} = useTypedSelector(orderSelector)
-  const { error, sended, responseMessage, loading } = send
+  const {send} = useTypedSelector(orderSelector)
+  const orderList = useTypedSelector(cartListSelector)
+  const { status, message, loading } = send
   const appDispatch = useAppDispatch()
+
+  useEffect(()=>{
+    appDispatch(orderActions.resetOrder())
+  }, [])
+  
     useEffect (()=>{
-        if (sended){
-            if (!error){
-                appDispatch(modalActions.setModalInfo({modalMessage: responseMessage, modalTitle:"Заказ создан"}))
-                appDispatch(cartActions.setCartList({cartList: []}))
+        if (status){
+            switch (status) {
+                case "rejected":
+                    appDispatch(modalActions.setModalInfo({modalMessage: message, modalTitle: "Ошибка!"}))
+                    appDispatch(modalActions.setModalShow({show: true}))
+                    break
+                case "fulfilled":
+                    appDispatch(modalActions.setModalInfo({modalMessage: message, modalTitle:"Заказ создан", redirectTo: "/orders"}))
+                    appDispatch(modalActions.setModalShow({show: true}))
+                    appDispatch(cartActions.setCartList({cartList: []}))
+                    break
+                default:
+                    break;
+                }
             }
-            else {
-                appDispatch(modalActions.setModalInfo({modalMessage: responseMessage, modalTitle: "Ошибка!"}))
-            }
-            appDispatch(modalActions.setModalShow({show: true}))
-        }
-    }, [sended])
+        return
+    }, [status])
 
     return (
     <div className="container page-container">
@@ -35,11 +46,11 @@ const NewOrderPage: React.FC = ()=>{
             Новый заказ
         </h1>
         <h3 className="service__header"> Состав заказа </h3>
-        <OrderList/>
+        <OrderList partList={orderList} />
         <h3 className="service__header" > Данные покупателя </h3>
         <CustDataForm/>
-        {loading ? <Loader/> : null}
-        {sended ? <ModalWindow action={orderActions.resetOrder}/> : null}
+        {loading ? <Loader/> : null} 
+        <ModalWindow action={orderActions.resetOrder}/>
 
     </div>)
 }

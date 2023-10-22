@@ -15,13 +15,16 @@ import cartReducer from "./reducers/cartReducer";
 import modalReducer from "./reducers/modalReducer";
 import orderReducer from "./reducers/orderReducer";
 import loaderReducer from "./reducers/loaderReducer";
+import userReducer from "./reducers/userReducer";
 
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["partList", "modal", "loader", "order"],
 };
 
 const rootReducer = combineReducers({
+  user: userReducer,
   partList: partListReducer,
   cart: cartReducer,
   modal: modalReducer,

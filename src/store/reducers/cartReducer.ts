@@ -1,9 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import {
-  ISparePartInCart,
-  IPartGroup,
-  ISparePart,
-} from "../../types/sparePart";
+import { ISparePartInCart, ISparePart } from "../../types/sparePart";
 import {
   addPartToCart,
   deletePartFromCart,

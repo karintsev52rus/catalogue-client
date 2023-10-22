@@ -8,9 +8,7 @@ const usePartList = () => {
   const appDispatch = useAppDispatch();
   const partsLoaderLimit = 10;
 
-  const { loaderSelector } = partListSelectors;
-
-  const loading = useTypedSelector(loaderSelector);
+  const loading = useTypedSelector(partListSelectors.partListLoading);
 
   const [partsCount, setPartsCount] = useState(0);
 

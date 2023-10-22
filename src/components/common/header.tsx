@@ -1,70 +1,18 @@
 import Logo from "../../assets/img/icons/logo.svg"
-import { touch } from "../../assets/js/touch"
 import { SearchForm } from "../searchForm"
-import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useTypedSelector } from "../../hooks/useTypedSelector"
-import { cartListSelector } from "../../store/selectors"
+import { Navigation } from "./navigation"
 
 
 
 const Header: React.FC = ()=>{
-
-    const cartList = useTypedSelector(cartListSelector)
-    const cartListLength = cartList.length
-
-    touch()
-    const [isOpen, setIsOpen] = useState(false)
-
-    const toggleMenu = ()=>{
-        setIsOpen(!isOpen)
-    }
 
     return (
         <>
         <header>
         <div className="header">
             <div className="container">
-                <nav>
-                    <div
-                    onClick = {toggleMenu}
-                    className={ isOpen? "hamburger hamburger-active": "hamburger"} >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <ul className={isOpen? "menu header__menu menu-active" : "menu header__menu"}>
-
-                        <li className="menu-item">
-                            <Link
-                            onClick = {toggleMenu}
-                            to = "/">Запчасти</Link>
-                        </li>
-
-                        <li className="menu-item">
-                            <Link 
-                            onClick = {toggleMenu}
-                            to="/cart"> Корзина  {cartListLength > 0 ? `(${cartListLength})` : "" } </Link>
-                        </li>
-                        <li className="menu-item">
-                            <Link
-                            onClick = {toggleMenu}
-                            to = "/orders">
-                                Заказы
-                            </Link>
-                        </li>
-                        <li className="menu-item">
-                            <a href = "https://asc-nn.ru/">Сервис</a>
-                        </li>
-                        <li className="menu-item">
-                            <a href = "https://asc-nn.ru/o-kompanii">О компании</a>
-                        </li>
-                        <li className="menu-item">
-                            <a href = "https://asc-nn.ru/contacts">Контакты</a>
-                        </li>
-                    </ul>
-                    <div className ="drop-down-button">  </div>
-                </nav>
+                <Navigation/>
             </div>
             <div className="subheader">
                 <div className="subheader__container container">

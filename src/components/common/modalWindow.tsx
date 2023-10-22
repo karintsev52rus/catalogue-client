@@ -4,18 +4,23 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { modalSelector } from "../../store/selectors";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { modalActions } from "../../store/reducers/modalReducer";
+import { useNavigate } from "react-router-dom";
 
-const ModalWindow: React.FC<{action?: Function}> = ({action}) =>{
+const ModalWindow: React.FC<{action?: Function, redirectTo?: string}> = ({action}) =>{
     const modalInfo = useTypedSelector(modalSelector)
     const appDispatch = useAppDispatch()
-    const {modalMessage, modalTitle, show} = modalInfo
+    const {modalMessage, modalTitle, show, redirectTo} = modalInfo
+    const navigate = useNavigate()
     
 
     const handleClose = () => {
+      
       appDispatch(modalActions.setModalShow({show: false}))
-      console.log(action)
       if (action){
         appDispatch(action())
+      }
+      if (redirectTo){
+        navigate(redirectTo)
       }
     };
 
@@ -33,7 +38,6 @@ const ModalWindow: React.FC<{action?: Function}> = ({action}) =>{
     </Modal.Footer>
   </Modal> :
   null
-
 
     return (
         <>

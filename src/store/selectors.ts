@@ -20,8 +20,12 @@ const searchStringSelector = (state: RootState) => {
   return state.partList.searchString;
 };
 
-const loaderSelector = (state: RootState) => {
+const partListLoading = (state: RootState) => {
   return state.partList.loading;
+};
+
+const loaderSelector = (state: RootState) => {
+  return state.loader;
 };
 
 const cartListSelector = (state: RootState) => {
@@ -37,23 +41,36 @@ const modalSelector = (state: RootState) => {
 };
 
 const orderSelector = (state: RootState) => {
-  return state.order;
+  return state.order.currentOrder;
 };
 
 const sendOrderSelector = (state: RootState) => {
-  return state.order.send;
+  return state.order.currentOrder.send;
+};
+
+const ordersSelector = (state: RootState) => {
+  return state.order.createdOrders;
+};
+
+const userSelector = (state: RootState) => {
+  return state.user;
+};
+
+const isAuthSelector = (state: RootState) => {
+  return state.user.auth;
 };
 
 export const partListSelectors = {
   loadedListSelector,
   renderListSelector,
+  partListLoading,
   selectedListSelector,
-  loaderSelector,
   parentGroupsSelector,
   searchStringSelector,
 };
 
+export { loaderSelector };
 export { cartListSelector, cartListErrorSelector };
 export { modalSelector };
-export { orderSelector };
-export { sendOrderSelector };
+export { orderSelector, sendOrderSelector, ordersSelector };
+export { userSelector, isAuthSelector };

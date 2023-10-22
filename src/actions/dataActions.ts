@@ -1,5 +1,4 @@
 import { getImagePath } from "../helpers/getImagePath";
-import { IOrder } from "../types/sparePart";
 
 const server = process.env.SERVER;
 const staticPath = process.env.STATIC_PATH;
@@ -65,25 +64,4 @@ const getPart = async (partNumber: string) => {
   }
 };
 
-const sendOrder = async (orderData: IOrder) => {
-  try {
-    const orderStr = JSON.stringify({ order: orderData });
-    const response = await fetch(`${server}/api/catalogue/send_order`, {
-      method: "POST",
-      body: orderStr,
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-      },
-    });
-    if (response.ok) {
-      return await response.json();
-    } else {
-      throw new Error("Сервер не отвечает");
-    }
-  } catch (error) {
-    console.log(error);
-    return { message: error.message, error: true };
-  }
-};
-
-export { getPartList, getImage, getPart, getPartGroups, sendOrder };
+export { getPartList, getImage, getPart, getPartGroups };

@@ -4,6 +4,7 @@ interface IModalState {
   show: boolean;
   modalTitle: string;
   modalMessage: string;
+  redirectTo?: string;
 }
 
 export interface IModalAction {
@@ -12,6 +13,7 @@ export interface IModalAction {
     show?: boolean;
     modalMessage: string;
     modalTitle: string;
+    redirectTo: string;
   };
 }
 
@@ -19,6 +21,7 @@ const modalState: IModalState = {
   show: false,
   modalTitle: "",
   modalMessage: "",
+  redirectTo: null,
 };
 
 const modalSlice = createSlice({
@@ -30,10 +33,12 @@ const modalSlice = createSlice({
       action: PayloadAction<{
         modalTitle: string;
         modalMessage: string;
+        redirectTo?: string;
       }>
     ) {
       state.modalMessage = action.payload.modalMessage;
       state.modalTitle = action.payload.modalTitle;
+      state.redirectTo = action.payload.redirectTo;
     },
     setModalShow(state: IModalState, action: PayloadAction<{ show: boolean }>) {
       state.show = action.payload.show;
@@ -42,6 +47,7 @@ const modalSlice = createSlice({
       state.modalMessage = "";
       state.modalTitle = "";
       state.show = false;
+      state.redirectTo = null;
     },
   },
 });

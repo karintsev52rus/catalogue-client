@@ -20,16 +20,29 @@ interface IPartGroup {
 
 interface IOrder {
   custData: {
-    custName: { value: string; label: string };
-    custEmail: { value: string; label: string };
-    custPhone: { value: string; label: string };
-  };
-  orderData: {
-    orderDate: { value: string; label: string };
-    orderTime: { value: string; label: string };
-    orderNumber: { value: string; label: string };
+    custName: string;
+    custEmail: string;
+    custPhone: string;
   };
   orderList: ISparePartInCart[];
 }
 
-export { ISparePart, IPartGroup, ISparePartInCart, IOrder };
+interface CreatedOrder extends IOrder {
+  orderData: {
+    orderNumber: { value: string; label: string };
+    orderDate: { value: string; label: string };
+    orderTime: { value: string; label: string };
+  };
+  userId: string;
+}
+
+type OrderList = CreatedOrder[];
+
+export {
+  ISparePart,
+  IPartGroup,
+  ISparePartInCart,
+  IOrder,
+  CreatedOrder,
+  OrderList,
+};

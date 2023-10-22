@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { usePartList } from "./usePartList";
-import { partListSelectors } from "../store/selectors";
+import { loaderSelector, partListSelectors } from "../store/selectors";
 import { useTypedSelector } from "./useTypedSelector";
 import { useAppDispatch } from "./useAppDispatch";
 import { partListSliceActions } from "../store/reducers/partListReducer";
@@ -10,7 +10,7 @@ const useCategoryData = (categoryData: string) => {
   const { onLoadParts } = usePartList();
 
   const loadedList = useTypedSelector(partListSelectors.loadedListSelector);
-  const loader = useTypedSelector(partListSelectors.loaderSelector);
+  const loader = useTypedSelector(loaderSelector);
 
   const {
     setSearchStringFilter,
@@ -24,7 +24,7 @@ const useCategoryData = (categoryData: string) => {
   useEffect(() => {
     appDispatch(setSearchStringFilter({ searchString: "" }));
 
-    if (loadedList.length > 0 && !loader) {
+    if (loadedList.length > 0 && !loader.show) {
       appDispatch(clearParentGroupList());
       appDispatch(clearRenderedList());
       appDispatch(setRootGroupFilter({ rootGroup: categoryData }));

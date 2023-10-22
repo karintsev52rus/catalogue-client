@@ -1,4 +1,4 @@
-type validatorInputType = (value: string) => boolean;
+type validatorInputType = (value: string, compareValue?: string) => boolean;
 
 const validatePhone: validatorInputType = (phone: string): boolean => {
   if (
@@ -34,4 +34,26 @@ const validateCustName = (name: string) => {
   } else return false;
 };
 
-export { validatePhone, validateEmail, validateCustName, validatorInputType };
+const validatePassword = (password: string) => {
+  if (password.length < 6) {
+    return false;
+  } else return true;
+};
+
+const checkRepeatPassword = (password: string, compareValue: string) => {
+  console.log(password, compareValue);
+  if (password === compareValue) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export {
+  validatePhone,
+  validateEmail,
+  validateCustName,
+  validatorInputType,
+  validatePassword,
+  checkRepeatPassword,
+};
