@@ -54,7 +54,6 @@ export const getUserOrders = createAsyncThunk<
       throw new Error(json.message);
     }
   } catch (error) {
-    console.log(error);
     return rejectWithValue(error.message);
   }
 });

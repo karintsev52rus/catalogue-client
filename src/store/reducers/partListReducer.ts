@@ -30,21 +30,23 @@ export interface IPartListAction {
   };
 }
 
+const initialState: IState = {
+  loadedList: [],
+  renderedList: [],
+  renderCount: 0,
+  selectedList: [],
+  loading: false,
+  error: null,
+  parentGroups: { active: false, groups: [] },
+  rootGroup: { active: false, groupName: "" },
+  searchString: { active: false, value: "" },
+};
+
 const { sorters, filters } = PartListController;
 
 const partListSlice = createSlice({
   name: "partList",
-  initialState: {
-    loadedList: [],
-    renderedList: [],
-    renderCount: 0,
-    selectedList: [],
-    loading: false,
-    error: null,
-    parentGroups: { active: false, groups: [] },
-    rootGroup: { active: false, groupName: "" },
-    searchString: { active: false, value: "" },
-  },
+  initialState,
   reducers: {
     setSelectedList(state: IState) {
       let newSelectedList = state.loadedList;

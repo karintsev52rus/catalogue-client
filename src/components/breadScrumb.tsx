@@ -1,4 +1,4 @@
-import { useLocation, useMatches, Link, useMatch } from "react-router-dom"
+import { useLocation, useMatches, Link } from "react-router-dom"
 import { routesData } from "../routes/routes"
 
 
@@ -32,9 +32,13 @@ const BreadCrumbs = ()=>{
         <ul className="breadcrumbs">
             {titles.map((t, index)=>{
                 return (
-                    
                     <li key= {`${index}${t.pathname}`} className="breadcrumb">
-                        <Link key = {index} to={t.pathname} > { getCrumbTitle(t.pathname) } </Link>
+                        <Link
+                            key = {index} 
+                            to={t.pathname} 
+                            > 
+                            {getCrumbTitle(t.pathname)}
+                        </Link>
                         {
                             index !== titles.length - 1 ? 
                             <div  className="arrow">
