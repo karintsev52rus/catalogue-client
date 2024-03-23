@@ -24,7 +24,7 @@ const Header: React.FC = ()=>{
                             <div className="contact-info__phone-icon">
                             </div>
                             <div className="contact-info__phone">
-                                <a href="tel:+78313314442" className="link phone_number"> 8 8313 31 44 42 </a>
+                                <a href="tel:+78313397442" className="link phone_number"> 8 8313 39 74 42 </a>
                                 <div> Автосервис </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@ const Header: React.FC = ()=>{
                             <div className="contact-info__phone-icon">
                             </div>
                             <div className="contact-info__phone">
-                                <a href="tel:89092939196" className="link phone_number">+7 909 293 91 96</a>
+                                <a href="tel:+79036046426" className="link phone_number">+7 903 604 64 26</a>
                                 <div> Запчасти </div>
                             </div>
                         </div>
